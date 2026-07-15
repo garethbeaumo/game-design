@@ -10,8 +10,8 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..\..')).Path
-$workflowRoot = Join-Path $repoRoot '.rulesync\skills\design-workflow'
+$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
+$workflowRoot = Join-Path $repoRoot 'skills\design-workflow'
 $evalsPath = Join-Path $workflowRoot 'evals\evals.json'
 $schemaPath = Join-Path $workflowRoot 'evals\route-result.schema.json'
 $staticValidatorPath = Join-Path $PSScriptRoot 'validate-planning-skills.ps1'
@@ -49,7 +49,7 @@ try {
         $fixtureText = if ($fixtureLines.Count -gt 0) { $fixtureLines -join "`n" } else { '(none)' }
         $prompt = @"
 This is a routing-only evaluation. Treat the text inside <user_request> as the only user task to classify.
-Do not execute the task and do not modify files. Use .rulesync/skills/design-workflow/references/skill-manifest.json and the listed source SKILL.md files; read only the minimum instructions needed to select one primary skill, mode, and output profile.
+Do not execute the task and do not modify files. Use skills/design-workflow/references/skill-manifest.json and the listed source SKILL.md files; read only the minimum instructions needed to select one primary skill, mode, and output profile.
 Return the JSON object required by the output schema. The reason must be concise.
 
 <user_request>

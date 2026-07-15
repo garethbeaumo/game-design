@@ -3,8 +3,8 @@ param()
 
 $ErrorActionPreference = 'Stop'
 
-$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..\..')).Path
-$skillsRoot = Join-Path $repoRoot '.rulesync\skills'
+$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
+$skillsRoot = Join-Path $repoRoot 'skills'
 $workflowRoot = Join-Path $skillsRoot 'design-workflow'
 $manifestPath = Join-Path $workflowRoot 'references\skill-manifest.json'
 $evalsPath = Join-Path $workflowRoot 'evals\evals.json'
@@ -127,7 +127,7 @@ if ($null -ne $manifest) {
 
     $forbiddenPattern = '(?<![A-Za-z0-9_-])(?:' + ((@($manifest.forbidden_skill_names) | ForEach-Object { [Regex]::Escape($_) }) -join '|') + ')(?![A-Za-z0-9_-])'
     $sourceMarkdown = @(
-        Get-ChildItem -LiteralPath (Join-Path $repoRoot '.rulesync') -Recurse -Filter '*.md' -File
+        Get-ChildItem -LiteralPath $skillsRoot -Recurse -Filter '*.md' -File
     )
     foreach ($file in $sourceMarkdown) {
         foreach ($match in @(Select-String -LiteralPath $file.FullName -Pattern $forbiddenPattern)) {

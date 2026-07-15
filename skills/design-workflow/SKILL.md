@@ -77,7 +77,7 @@ description: "中文游戏策划工作流编排、产物治理与入口边界裁
 修改策划 Skill 架构后，从仓库根目录先运行静态契约校验：
 
 ```powershell
-pwsh -NoProfile -File .rulesync/skills/design-workflow/scripts/validate-planning-skills.ps1
+pwsh -NoProfile -File skills/design-workflow/scripts/validate-planning-skills.ps1
 ```
 
 该脚本按 `references/skill-manifest.json` 比较实际入口全集，检查 frontmatter、完整 reference 图、旧入口精确 token、eval schema、路由覆盖和 fixture；成功输出会明确说明没有执行模型评测。
@@ -85,7 +85,7 @@ pwsh -NoProfile -File .rulesync/skills/design-workflow/scripts/validate-planning
 需要验证真实模型路由时，再运行较慢的独立命令：
 
 ```powershell
-pwsh -NoProfile -File .rulesync/skills/design-workflow/scripts/run-planning-route-evals.ps1
+pwsh -NoProfile -File skills/design-workflow/scripts/run-planning-route-evals.ps1
 ```
 
-模型命令逐条执行 `evals/evals.json`，将结构化结果与 `expected_route` 比较并在不一致时失败；不要把静态校验冒充模型路由结果。最后仍需运行 `rulesync generate` 与 `rulesync generate --check`。
+模型命令逐条执行 `evals/evals.json`，将结构化结果与 `expected_route` 比较并在不一致时失败；不要把静态校验冒充模型路由结果。

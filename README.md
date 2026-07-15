@@ -45,10 +45,10 @@ npx skills add garethbeaumo/game-design -l
 
 ## 目录
 
-源文件在 `.rulesync/skills/`。也可用 [rulesync](https://github.com/dyoshikawa/rulesync) 同步到各 agent 目标目录。
+源文件在 `skills/`。
 
 ## 校验
 
 ```powershell
-pwsh -NoProfile -File .rulesync/skills/design-workflow/scripts/validate-planning-skills.ps1
+pwsh -NoProfile -File skills/design-workflow/scripts/validate-planning-skills.ps1
 ```
