@@ -1,0 +1,313 @@
+{
+  "schema_version": 1,
+  "suite": "planning-routing",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我们还没有完整 GDD，先在已有战斗系统里写一版可讨论的受击、倒地、复活和失败恢复规则草案。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["feature"]}],
+      "tags": ["route:design-docs", "trigger:change-first-draft", "boundary:no-full-gdd-prerequisite"]
+    },
+    {
+      "id": 2,
+      "prompt": "把天气系统加入当前系统登记，写清它与昼夜、能见度和任务生成的依赖，内部天气算法先不展开。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["system-map"]}],
+      "tags": ["route:design-docs", "trigger:change-first-system-map"]
+    },
+    {
+      "id": 3,
+      "prompt": "删除旧复活规则，但它仍被测试引用；请在当前功能规则中写明替代规则、迁移影响和回退条件。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["feature"]}],
+      "tags": ["route:design-docs", "trigger:change-first-delete"]
+    },
+    {
+      "id": 4,
+      "prompt": "目标玩家从硬核单人改为轻度合作玩家，请差量更新玩家承诺、核心情绪和明确不服务的体验。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["concept"]}],
+      "tags": ["route:design-docs", "trigger:change-first-concept"]
+    },
+    {
+      "id": 5,
+      "prompt": "新增无线电台系统并先写占线、话权、追问、超时和失败恢复；系统登记只做必要同步。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["system-map", "feature"]}],
+      "tags": ["route:design-docs", "boundary:primary-change-scope", "boundary:multi-scope-change"]
+    },
+    {
+      "id": 6,
+      "prompt": "战斗要在即时暂停和纯实时之间二选一，这会影响 AI、输入和关卡节奏；请结构化比较并推荐。",
+      "expected_steps": [{"skill": "design-inference", "modes": ["decision"]}],
+      "tags": ["route:design-inference", "trigger:high-impact-candidates"]
+    },
+    {
+      "id": 7,
+      "prompt": "多源调查三款已上线撤离射击游戏当前版本的撤离条件、失败代价和单局节奏，只做可追溯证据。",
+      "expected_steps": [{"skill": "design-evidence", "modes": ["competitor"]}],
+      "tags": ["route:design-evidence", "mode:competitor"]
+    },
+    {
+      "id": 8,
+      "prompt": "分析这批首次玩家录像、访谈、失败日志和遥测，区分观察、归因假设、反例和样本限制。",
+      "expected_steps": [{"skill": "design-evidence", "modes": ["playtest"]}],
+      "tags": ["route:design-evidence", "mode:playtest"]
+    },
+    {
+      "id": 9,
+      "prompt": "从当前代码、Prefab、配置和本地运行结果反推警戒系统实际行为，并记录各证据层级与冲突。",
+      "expected_steps": [{"skill": "design-evidence", "modes": ["implementation"]}],
+      "tags": ["route:design-evidence", "mode:implementation"]
+    },
+    {
+      "id": 10,
+      "prompt": "三个系统要共同进入下个版本，请安排 P0 范围、两名负责人、里程碑出口、发布门槛和失败回退。",
+      "expected_steps": [{"skill": "design-workflow", "modes": ["governance"]}],
+      "tags": ["route:design-workflow", "boundary:governance-escalation"]
+    },
+    {
+      "id": 11,
+      "prompt": "只读当前概念文档，告诉我主要讲了什么，不要修改文件。",
+      "expected_steps": [],
+      "tags": ["route:none", "boundary:no-skill", "near-miss:read-only"]
+    },
+    {
+      "id": 12,
+      "prompt": "把这段系统规则翻译成英文并校对术语，不改变设计内容。",
+      "expected_steps": [],
+      "tags": ["route:none", "boundary:no-skill", "near-miss:translation"]
+    },
+    {
+      "id": 13,
+      "prompt": "录音按钮点了没有反应，检查 Controller、Prefab 引用和 Console 后直接修复。",
+      "expected_steps": [],
+      "tags": ["route:none", "boundary:no-skill", "boundary:implementation"]
+    },
+    {
+      "id": 14,
+      "prompt": "查一下《杀戮尖塔》最初是哪年发行，给一个官方链接即可。",
+      "expected_steps": [],
+      "tags": ["route:none", "boundary:no-skill", "near-miss:simple-lookup"]
+    },
+    {
+      "id": 15,
+      "prompt": "告诉我当前配置里复活时间常量在哪个文件哪一行，不需要反推设计行为。",
+      "expected_steps": [],
+      "tags": ["route:none", "boundary:no-skill", "near-miss:constant-location"]
+    },
+    {
+      "id": 16,
+      "prompt": "撤退按钮写‘撤退’还是‘撤离’？只给一句低成本直觉建议，不要做正式评审或改文档。",
+      "expected_steps": [],
+      "tags": ["route:none", "boundary:no-skill", "boundary:inline-decision"]
+    },
+    {
+      "id": 17,
+      "prompt": "把当前界面规则里的按钮文案从‘撤退’改成‘撤离’，并记录这次局部可逆变化。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["feature"]}],
+      "tags": ["route:design-docs", "boundary:inline-decision"]
+    },
+    {
+      "id": 18,
+      "prompt": "已给出团队确认截图和当前规则链接，把开门条件改为持有钥匙后自动触发；不需要另做证据报告。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["feature"]}],
+      "tags": ["route:design-docs", "boundary:inline-evidence"]
+    },
+    {
+      "id": 19,
+      "prompt": "先多源调查三款竞品的基地扩建方式，再结合我们的跨系统成本比较自由摆放和槽位式并推荐。",
+      "expected_steps": [
+        {"skill": "design-evidence", "modes": ["competitor"]},
+        {"skill": "design-inference", "modes": ["decision"]}
+      ],
+      "tags": ["handoff:evidence-to-inference", "context:ordered-handoff"]
+    },
+    {
+      "id": 20,
+      "prompt": "团队已经确认以当前实装行为为准；先从代码、配置和运行结果形成可追溯事实，再把一致结论差量写入警戒规则。",
+      "expected_steps": [
+        {"skill": "design-evidence", "modes": ["implementation"]},
+        {"skill": "design-docs", "modes": ["feature"]}
+      ],
+      "tags": ["handoff:evidence-to-docs", "context:ordered-handoff"]
+    },
+    {
+      "id": 21,
+      "prompt": "团队已授权你比较两套会影响存档迁移的成长方案，形成高影响推荐后直接把结果更新进当前功能规则，不再等待二次确认。",
+      "expected_steps": [
+        {"skill": "design-inference", "modes": ["decision"]},
+        {"skill": "design-docs", "modes": ["feature"]}
+      ],
+      "tags": ["handoff:inference-to-docs", "context:ordered-handoff"]
+    },
+    {
+      "id": 22,
+      "prompt": "先分析两版首次体验的录像、指标和 A/B 原始结果；团队已授权你按既定主指标和护栏决定保留哪套高成本教学流程，决定后直接更新当前规则。",
+      "expected_steps": [
+        {"skill": "design-evidence", "modes": ["playtest"]},
+        {"skill": "design-inference", "modes": ["decision"]},
+        {"skill": "design-docs", "modes": ["feature"]}
+      ],
+      "tags": ["handoff:evidence-to-inference", "handoff:inference-to-docs", "context:ordered-handoff"]
+    },
+    {
+      "id": 23,
+      "prompt": "这个核心循环已经成形，请连续拷问我高影响问题并收束会推翻方案的取舍。",
+      "expected_steps": [{"skill": "design-inference", "modes": ["decision"]}],
+      "tags": ["route:design-inference", "boundary:no-grill"]
+    },
+    {
+      "id": 24,
+      "prompt": "审查并重构这四个策划 Skill 的职责、触发、交接和验证控制面。",
+      "expected_steps": [],
+      "tags": ["route:none", "boundary:no-skill", "boundary:meta"]
+    },
+    {
+      "id": 25,
+      "prompt": "按当前权威生成一份完整设计快照给评审，但不能让快照成为第二套可修改规则。",
+      "expected_steps": [{"skill": "design-workflow", "modes": ["snapshot"]}],
+      "tags": ["route:design-workflow", "context:isolation", "boundary:snapshot-isolation"]
+    },
+    {
+      "id": 26,
+      "prompt": "只给已经存在的门禁系统增加一次失败重试和反馈规则，不涉及其他系统、人员或版本。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["feature"]}],
+      "tags": ["route:design-docs", "boundary:no-governance-escalation"]
+    },
+    {
+      "id": 27,
+      "prompt": "把昨天试玩会议纪要压缩成五条明确事项，不做归因、决策或正式设计修改。",
+      "expected_steps": [],
+      "tags": ["route:none", "boundary:no-skill", "near-miss:summarize"]
+    },
+    {
+      "id": 28,
+      "prompt": "评审这个 C# PR 的异常处理和资源释放，只报告运行时故障。",
+      "expected_steps": [],
+      "tags": ["route:none", "boundary:no-skill", "near-miss:code-review"]
+    },
+    {
+      "id": 29,
+      "prompt": "评审这版战斗策划，找出会破坏核心循环的跨系统矛盾，并对两个真实候选给出高影响推荐。",
+      "expected_steps": [{"skill": "design-inference", "modes": ["decision"]}],
+      "tags": ["route:design-inference", "trigger:design-review"]
+    },
+    {
+      "id": 30,
+      "prompt": "随便聊聊以后加夜战会不会有意思，不要比较方案或写文档。",
+      "expected_steps": [],
+      "tags": ["route:none", "boundary:no-skill", "near-miss:casual"]
+    },
+    {
+      "id": 31,
+      "prompt": "当前代码、服务器配置和实际运行响应对同一警戒超时给出三个值，请做可复查的现状审计。",
+      "expected_steps": [{"skill": "design-evidence", "modes": ["implementation"]}],
+      "tags": ["route:design-evidence", "boundary:multi-source-conflict"]
+    },
+    {
+      "id": 32,
+      "prompt": "从当前系统登记中废弃旧天气系统，保留替代关系并更新它与任务生成的依赖。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["system-map"]}],
+      "tags": ["route:design-docs", "trigger:change-first-delete"]
+    },
+    {
+      "id": 33,
+      "prompt": "先把‘移动堡垒指挥官’作为 proposed/unverified 概念草案写入，不要求先补系统地图和完整功能案。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["concept"]}],
+      "tags": ["route:design-docs", "trigger:change-first-draft", "boundary:no-full-gdd-prerequisite"]
+    },
+    {
+      "id": 34,
+      "prompt": "电台、AI 和任务系统要由三个负责人协作上线，请管理依赖、审批、里程碑和发布回退，不改各系统内部规则。",
+      "expected_steps": [{"skill": "design-workflow", "modes": ["governance"]}],
+      "tags": ["route:design-workflow", "boundary:governance-escalation"]
+    },
+    {
+      "id": 35,
+      "prompt": "分析随机分流的两版新手教程 A/B 原始数据，记录样本、窗口、效应、护栏和替代解释，不选方案。",
+      "expected_steps": [{"skill": "design-evidence", "modes": ["playtest"]}],
+      "tags": ["route:design-evidence", "mode:playtest", "boundary:experiment"]
+    },
+    {
+      "id": 36,
+      "prompt": "把已确定的警戒规则整理到程序可实现的粒度，补齐状态、事件、数据语义、恢复和验收。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["feature"]}],
+      "tags": ["route:design-docs", "boundary:implementation-ready"]
+    },
+    {
+      "id": 37,
+      "prompt": "收集并归因社区里关于体力焦虑的帖子、客服反馈和留存指标，保留样本偏差，不直接改设计。",
+      "expected_steps": [{"skill": "design-evidence", "modes": ["playtest"]}],
+      "tags": ["route:design-evidence", "mode:playtest", "boundary:community-evidence"]
+    },
+    {
+      "id": 38,
+      "prompt": "团队已确认把概念从单英雄操作改为移动堡垒指挥，并要求同一次变更同步重切系统登记和受影响的战斗功能规则。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["concept", "system-map", "feature"]}],
+      "tags": ["route:design-docs", "boundary:multi-scope-change"]
+    },
+    {
+      "id": 39,
+      "prompt": "healthz 返回 200，代码和配置也都存在；请核对这些证据能否证明生产客户端已完成真实 E2E，并明确未验证层级。",
+      "expected_steps": [{"skill": "design-evidence", "modes": ["implementation"]}],
+      "tags": ["route:design-evidence", "boundary:evidence-proof-layer"]
+    },
+    {
+      "id": 40,
+      "prompt": "给‘撤退’还是‘撤离’这个低成本可逆文案选择单独建一份 DEC，先不要修改当前设计。",
+      "expected_steps": [],
+      "tags": ["route:none", "boundary:no-skill", "boundary:no-forced-dec"]
+    },
+    {
+      "id": 41,
+      "prompt": "比较两套会影响存档迁移的成长方案并形成推荐，但先不要更新规则；等我下一轮明确确认后再写入。",
+      "expected_steps": [{"skill": "design-inference", "modes": ["decision"]}],
+      "tags": ["route:design-inference", "gate:await-user-confirmation", "boundary:no-premature-docs"]
+    },
+    {
+      "id": 42,
+      "prompt": "先分析两版首次体验的录像、指标和 A/B 原始结果并推荐高成本教学流程，但等我确认后再更新当前规则。",
+      "expected_steps": [
+        {"skill": "design-evidence", "modes": ["playtest"]},
+        {"skill": "design-inference", "modes": ["decision"]}
+      ],
+      "tags": ["handoff:evidence-to-inference", "context:ordered-handoff", "gate:await-user-confirmation", "boundary:no-premature-docs"]
+    },
+    {
+      "id": 43,
+      "prompt": "新增干员疲劳系统，先登记它与匹配、语音提示、奖励结算的边界并写最小规则；同时协调三个负责人、四周版本范围、发布门槛和回退。",
+      "expected_steps": [
+        {"skill": "design-docs", "modes": ["system-map", "feature"]},
+        {"skill": "design-workflow", "modes": ["governance"]}
+      ],
+      "tags": ["handoff:docs-to-workflow", "context:ordered-handoff", "boundary:governance-escalation", "boundary:multi-scope-change"]
+    },
+    {
+      "id": 44,
+      "prompt": "两套核心移动方案都会影响关卡和战斗，现有证据无法判断；唯一会推翻选择的假设必须用灰盒交互验证。请设计最小 Prototype 和停止条件。",
+      "expected_steps": [{"skill": "design-inference", "modes": ["decision"]}],
+      "tags": ["route:design-inference", "trigger:prototype", "boundary:fatal-assumption"]
+    },
+    {
+      "id": 45,
+      "prompt": "两个提示音候选成本低、可随时切换，也不会影响其他系统；选一个直接写成 proposed 功能草案并保留回退，不做高影响评审。",
+      "expected_steps": [{"skill": "design-docs", "modes": ["feature"]}],
+      "tags": ["route:design-docs", "boundary:low-cost-candidates-no-inference", "boundary:inline-decision"]
+    },
+    {
+      "id": 46,
+      "prompt": "当前赛季发布门槛取决于新手流失是否超出护栏。先分析随机分流实验的样本、效应和偏差，再把有限结论更新回同一个版本 change-set 的发布判断；不要改游戏规则。",
+      "expected_steps": [
+        {"skill": "design-evidence", "modes": ["playtest"]},
+        {"skill": "design-workflow", "modes": ["governance"]}
+      ],
+      "tags": ["handoff:evidence-to-workflow", "context:ordered-handoff", "boundary:governance-return"]
+    },
+    {
+      "id": 47,
+      "prompt": "当前版本必须在两套会改变迁移窗口和发布风险的成长方案间选一个。比较真实候选并形成高影响推荐后，把决定更新回现有版本 change-set；本轮不要改功能规则。",
+      "expected_steps": [
+        {"skill": "design-inference", "modes": ["decision"]},
+        {"skill": "design-workflow", "modes": ["governance"]}
+      ],
+      "tags": ["handoff:inference-to-workflow", "context:ordered-handoff", "boundary:governance-return"]
+    }
+  ]
+}

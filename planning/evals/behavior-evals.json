@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "suite": "planning-behavior",
+  "evals": [
+    {
+      "id": 1,
+      "name": "mid-project-local-feature",
+      "prompt": "项目已经有可玩的任务、语音和战术地图系统。现在想新增一个行动后口令复盘功能：每局结束只记录三个关键通信失误，下一局开始前给出提示；它不改变核心循环，是否长期保存还没定。请直接给出能继续讨论的策划草案，不要重做完整 GDD，也不要先要求补齐整套概念案。",
+      "expected_output": "输出一个小范围、可继续讨论的 proposed + unverified 功能规则切片；说明当前基线、本次差量、不改范围、关键规则、验收和复查/回退。",
+      "expectations": [
+        "收敛为已有系统中的局部功能规则，不扩写完整 GDD、全量系统地图或阶段计划",
+        "明确 proposed 与 unverified 是不同维度，不把未确认内容写成 current",
+        "包含当前基线、本次新增、不改内容、可观察验收和长期保存未定的复查或回退",
+        "不强制创建 EVID、DEC、独立治理记录或完整编号体系"
+      ],
+      "tags": ["state:proposed", "boundary:no-full-gdd", "scope:feature"]
+    },
+    {
+      "id": 2,
+      "name": "implementation-conflict-and-reversal",
+      "prompt": "试玩反馈说自动锁敌让紧张感消失；旧策划文档写的是每五秒自动锁定，但最近重构后代码可能已经变成手动标记。请先说明要补哪些证据、如何判断改文档还是改实现，再给出最小变更顺序。不要默认代码或旧文档天然权威。",
+      "expected_output": "区分旧文档、静态实现、运行行为与试玩反馈；先确认事实和应然取舍，再只修改错误的一侧并保留回退。",
+      "expectations": [
+        "区分旧文档主张、静态代码或资源、实际运行行为和试玩反馈的证明层级",
+        "代码与旧文档都不能自动成为当前设计，先调查再决定接受哪一侧",
+        "只在存在真实候选或高返工取舍时升级决策，确认后差量更新当前规则",
+        "给出最小顺序、可观察判据和失败回退，不重走完整策划生命周期"
+      ],
+      "tags": ["conflict:implementation-docs", "evidence:proof-layer", "change:reversal"]
+    },
+    {
+      "id": 3,
+      "name": "cross-system-season-release",
+      "prompt": "赛季二要加入干员疲劳，它会影响匹配、语音提示和奖励结算，分别由三个负责人维护，目标四周上线。请整理本版本范围、关键依赖、负责人、门槛和回退；不要替三个系统写完整功能规则，也不要重规划整个项目。",
+      "expected_output": "以一个跨系统版本 change-set 做治理；版本内标优先级、依赖、责任、就绪证据和回退，只引用各系统当前权威。",
+      "expectations": [
+        "组织为当前版本 change-set，而不是项目全生命周期或完整 GDD",
+        "P0-P3 或等价优先级属于当前版本范围，不写成系统永久属性",
+        "覆盖三个系统之间的依赖、负责人、审批入口、可观察出口和回退",
+        "不复制局部规则，并明确回指各系统当前权威"
+      ],
+      "tags": ["governance:cross-system", "authority:single-source", "scope:version"]
+    },
+    {
+      "id": 4,
+      "name": "confirmed-concept-reversal",
+      "prompt": "我们已经确认：原先无线电始终公开的概念要改为小队私密频道默认，公共频道仅用于紧急呼叫。请直接更新策划结构：指出最小受影响文档、如何替代旧规则、需要同步的系统职责和功能规则、验收与回退。结论已确认，不要再建证据报告或决策记录。",
+      "expected_output": "把旧方向标为 superseded、把新方向作为唯一 current；验证状态另记，不把技术回退误写成旧概念重新生效。",
+      "expectations": [
+        "直接差量更新 concept、必要的 system-map 条目和 feature 规则，不重复调查或评审",
+        "旧方向 superseded 只表达当前性变化，不写成 rejected 的证据结论",
+        "保持单一 current 权威，只同步真实受影响的职责、接口和玩家规则",
+        "包含正常、边界或失败恢复验收，以及不会恢复旧概念的技术回退"
+      ],
+      "tags": ["state:superseded-not-rejected", "change:reversal", "authority:single-source"]
+    },
+    {
+      "id": 5,
+      "name": "adopted-but-unverified",
+      "prompt": "我们决定本周版本采用局内弹药共享，但还没有足够试玩数据证明它能改善协作。请把这一条写进当前功能规则，并注明下周复查和失败后的回退。",
+      "expected_output": "规则当前性为 current，验证性为 unverified；写明复查信号与回退，不因尚未验证降回 proposed，也不提前标 supported。",
+      "expectations": [
+        "明确采用来源，因此当前性写为 current",
+        "尚无验证结果，因此验证性写为 unverified 而不是 supported",
+        "给出可观察信号、下周复查时机和失败回退",
+        "不为这一条局部规则升级成完整研究、决策或版本治理"
+      ],
+      "tags": ["state:current-unverified", "scope:feature"]
+    },
+    {
+      "id": 6,
+      "name": "delete-with-mixed-references",
+      "prompt": "删除两条旧规则：临时提示音没有任何外部引用；旧复活规则仍被自动化测试和遥测引用。请只处理必要的权威记录和迁移影响。",
+      "expected_output": "无外部引用的规则直接删除；保留仍被引用规则的稳定 ID 并标 superseded，记录替代、消费者和移除条件。",
+      "expectations": [
+        "无外部引用的临时提示音规则可以直接删除，不创建墓碑或新 ID",
+        "仍被测试和遥测引用的复活规则保留原稳定 ID 并标 superseded",
+        "记录替代规则、真实消费者、迁移影响和最终移除条件",
+        "删除行为不被扩写成全系统重构或固定阶段流程"
+      ],
+      "tags": ["id:no-external-reference", "id:external-reference", "change:delete"]
+    },
+    {
+      "id": 7,
+      "name": "prototype-simulation-evidence-routing",
+      "prompt": "高影响数值方案的致命假设已经用离线模拟原型跑完。请说明如何记录这批参数、极端情况和稳定性结果，再回到候选决定；没有玩家参与，不要把它写成试玩结论。",
+      "expected_output": "把模拟版本、参数、环境和结果作为 implementation 类证据固化；不伪装成 playtest，再返回原决定维持、修订或回退。",
+      "expectations": [
+        "明确该原型结果来自数据或模拟而非玩家试玩",
+        "记录模拟或模型版本、参数、环境、样本或随机种子、极端情况、结果、复现入口和局限",
+        "需要独立复查时，把参数、原始结果与复现入口归入 implementation 证据包，由决定只引用有限结论；不写成 playtest，也不塞进 DEC 代替证据",
+        "结果回到被阻塞的候选决定，不把 Prototype 扩成产品 MVP"
+      ],
+      "tags": ["prototype:evidence-routing", "evidence:proof-layer"]
+    },
+    {
+      "id": 8,
+      "name": "new-system-minimal-slice",
+      "prompt": "成熟项目已经有任务、战斗和奖励系统，现在要真正新增一个天气系统。先登记它对能见度与任务生成的职责和依赖，再写首版暴雨触发、反馈、失败恢复与验收；方向尚未正式采用。不要补完整概念案、全量系统地图、完整 GDD 或版本排期。",
+      "expected_output": "只新增受影响的 proposed + unverified 系统登记和功能规则切片；既承认这是新系统，又不把它扩成项目全案或版本治理。",
+      "expectations": [
+        "同时命中最小 system-map 与 feature 范围，登记新系统边界并写首版可观察规则",
+        "系统登记和功能切片保持 proposed + unverified，不因写入文档自动成为 current",
+        "只同步能见度与任务生成等真实依赖，不补齐无关概念、系统或完整 GDD",
+        "不引入 P0-P3、负责人、里程碑或发布治理，除非用户另行授权"
+      ],
+      "tags": ["scope:new-system-slice", "state:proposed", "boundary:no-full-gdd"]
+    },
+    {
+      "id": 9,
+      "name": "pre-adoption-proposal-revisions",
+      "prompt": "核心概念还没采用：第一稿是单人潜入，第二稿改为双人合作，现在第三稿想改成四人小队。请更新可讨论草案，但不要把任何一稿写成已经生效，也不要堆出三份完整概念案。",
+      "expected_output": "原位修订同一个最小 proposed 切片并由版本历史保留变化；不存在 current/superseded/rejected，也不制造并列权威。",
+      "expectations": [
+        "第三稿仍是 proposed，并与验证性分开；没有采用来源就不标 current",
+        "旧草稿从未生效，因此不标 superseded；没有失败证据，因此不标 rejected",
+        "原位修改最小概念切片，由版本历史追溯 A 到 B 到 C，不累积三份完整概念案",
+        "若后续需要正式比较多个高影响候选才交 design-inference，本次不伪造决策结论"
+      ],
+      "tags": ["state:proposed-revision", "authority:single-source", "boundary:no-full-gdd"]
+    },
+    {
+      "id": 10,
+      "name": "active-release-rebaseline",
+      "prompt": "赛季二 change-set 已开发两周，现在要移除 P2 的天气事件、把疲劳从 P1 提到 P0，并把语音提示负责人从甲换成乙。请重新基线化当前版本，保留变化原因和影响，但不要重写整份计划或各系统规则。",
+      "expected_output": "在同一活跃 change-set 上差量更新范围、优先级、负责人、关键路径与出口；保留唯一当前版本基线和变更追溯。",
+      "expectations": [
+        "在同一版本 change-set 中记录原基线、变化原因和三项差量，不新建并列的当前版本计划",
+        "P0-P3 只对当前版本重新计算，不写成天气、疲劳或语音系统的永久属性",
+        "同步受影响的关键路径、责任、验证、发布出口和回退，不复制系统内部功能规则",
+        "未受影响范围沿用当前基线，旧值由差量记录或版本历史追溯"
+      ],
+      "tags": ["governance:rebaseline", "governance:cross-system", "authority:single-source"]
+    },
+    {
+      "id": 11,
+      "name": "artifact-new-system-delta",
+      "prompt": "在这个成熟项目里加一个天气系统，首版只支持暴雨：暴雨降低能见度，并让任务生成避开露天侦察；开始和结束都要有明确反馈，读档恢复失败时回到晴天。方向还在讨论。请直接更新现有设计文档。",
+      "expected_output": "原位更新 design-authority.md：只增加天气系统登记和暴雨功能切片，保持其他当前基线不变。",
+      "files": ["planning/evals/fixtures/new-system/design-authority.md"],
+      "output_files": ["design-authority.md"],
+      "expectations": [
+        "只返回原有 design-authority.md，不创建完整 GDD、版本计划或其他策划文件",
+        "完整保留 concept-baseline-v1、untouched-reward-rule 及原有任务、战斗、奖励内容",
+        "新增天气系统登记，以独立字段或列记录当前性 proposed 与验证性 unverified，不把两者合并进 currentness，并只连接能见度与任务生成依赖",
+        "暴雨规则包含触发或结束、能见度和任务生成影响、开始与结束反馈、读档失败回晴天以及可观察验收",
+        "没有把 P0-P3、产品 MVP、负责人、日期或里程碑写入永久系统权威"
+      ],
+      "tags": ["artifact:file-delta", "scope:new-system-slice", "boundary:natural-request"]
+    },
+    {
+      "id": 12,
+      "name": "artifact-proposal-revision",
+      "prompt": "上一轮单人潜入草案先别采用，改成四人小队协作；当前已经采用的游戏方向和信任边界都不变。请直接更新这份概念文档。",
+      "expected_output": "原位更新 concept.md 的同一提案切片；四人小队仍是 proposed + unverified，其他当前基线逐字保持。",
+      "files": ["planning/evals/fixtures/proposal-revision/concept.md"],
+      "output_files": ["concept.md"],
+      "expectations": [
+        "只返回原有 concept.md，不新建第二份概念案、候选包或决策记录",
+        "完整保留 adopted-concept-baseline、trust-boundary-v1 及其原有内容",
+        "同一尚未采用提案改为四人小队，旧的单人潜入文本不再作为并列提案保留",
+        "新稿仍为 proposed + unverified，不误标 current、superseded 或 rejected",
+        "只更新提案及相应待验证问题，不重写无关概念字段"
+      ],
+      "tags": ["artifact:file-delta", "artifact:proposal-revision", "state:proposed-revision", "boundary:natural-request"]
+    },
+    {
+      "id": 13,
+      "name": "artifact-release-rebaseline",
+      "prompt": "赛季二已经开发两周。天气事件本版取消；干员疲劳从 P1 提到 P0；语音提示负责人从甲换成乙。请更新当前版本计划。",
+      "expected_output": "原位更新 season-2.md 的同一 CHG-S2 基线，只重算受影响范围、优先级、负责人、关键路径与出口。",
+      "files": ["planning/evals/fixtures/release-rebaseline/season-2.md"],
+      "output_files": ["season-2.md"],
+      "expectations": [
+        "只返回原有 season-2.md，CHG-S2 仍是唯一活跃版本基线，不复制整份版本计划",
+        "天气事件不再是本版活跃 P2 范围，且保留取消或延后的变化原因",
+        "干员疲劳更新为 P0，语音提示负责人更新为乙",
+        "完整保留奖励结算兼容条目、matchmaking-release-gate 与其他未受影响基线",
+        "同步受影响的关键路径、验证或回退，但不复制三个系统的内部功能规则",
+        "天气取消不自动清空原负责人丙；除非用户或现有权威明确解除责任，否则保留其收尾、迁移或归档责任"
+      ],
+      "tags": ["artifact:file-delta", "artifact:release-rebaseline", "governance:rebaseline", "boundary:natural-request"]
+    },
+    {
+      "id": 14,
+      "name": "governance-specialist-return",
+      "prompt": "赛季二已有唯一活跃 change-set，发布门槛取决于新手流失是否越过护栏。请先分析随机分流实验的样本、效应和偏差，再把有限结论更新回该版本的发布判断与回退；不要修改游戏规则，也不要新建另一份版本计划。",
+      "expected_output": "先形成 playtest 证据切片，再把有限结论返回原 change-set 更新发布门槛；证据不代替治理判断，也不绕经 design-docs。",
+      "expectations": [
+        "明确先由 playtest 证据固化样本、效应、偏差和证明边界，再返回原活跃 change-set",
+        "版本治理只引用有限证据结论，并更新受影响的发布判断、验证出口或回退，不让证据报告代替发布决定",
+        "保持唯一活跃版本基线，不新建并列计划，也不要求补完整 GDD 或固定阶段链",
+        "不修改游戏规则，不经由 design-docs 代管版本范围、门槛或发布事实"
+      ],
+      "tags": ["governance:specialist-return", "governance:cross-system", "evidence:playtest"]
+    },
+    {
+      "id": 15,
+      "name": "read-only-full-snapshot",
+      "prompt": "请按现有概念、系统登记、功能规则和版本范围生成一份完整设计快照供评审，但我这次没有提供任何实际权威正文或文件路径。部分负责人和日期也未知；不要补猜，不要用空表假装完成，也不要让快照成为第二套可修改规则。",
+      "expected_output": "识别为 snapshot 模式，但因缺少可定位来源而简洁停止：列出需要提供的权威来源类别，不建立 change-set、空治理框架或新规则。",
+      "expectations": [
+        "明确这是 snapshot 只读投影而非 governance change-set，不要求负责人、审批、门槛和回退闭环",
+        "明确实际权威正文或路径未提供，因此不能生成可信快照；只列出概念、系统登记、功能规则和版本范围等必要来源类别",
+        "不把本轮不可读取误写成项目没有设计或未登记，不生成成套空表；负责人、日期和其他缺失事实保持未知",
+        "说明未来快照应让每个条目回到来源并保留当前性与验证性，且快照不可独立修改或成为第二套权威"
+      ],
+      "tags": ["snapshot:read-only", "authority:single-source", "boundary:no-invention"]
+    }
+  ]
+}

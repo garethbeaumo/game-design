@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "steps": {
+      "type": "array",
+      "description": "按当前请求已授权且可执行的首次职责交接顺序排列策划 Skill；明确等待未来用户确认的步骤不纳入，普通直接任务返回空数组。",
+      "maxItems": 4,
+      "items": {"$ref": "#/definitions/routeStep"}
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": ["steps", "reason"],
+  "additionalProperties": false,
+  "definitions": {
+    "routeStep": {
+      "description": "skill-mode 所有权由各分支限定；每个 Skill 只出现一次，modes 至少一项且不得重复。跨 step 和数组唯一性由路由 runner 强制执行。",
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "skill": {"type": "string", "const": "design-docs"},
+            "modes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string", "enum": ["concept", "system-map", "feature"]}
+            }
+          },
+          "required": ["skill", "modes"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "skill": {"type": "string", "const": "design-evidence"},
+            "modes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string", "enum": ["competitor", "playtest", "implementation"]}
+            }
+          },
+          "required": ["skill", "modes"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "skill": {"type": "string", "const": "design-inference"},
+            "modes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string", "enum": ["decision"]}
+            }
+          },
+          "required": ["skill", "modes"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "skill": {"type": "string", "const": "design-workflow"},
+            "modes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string", "enum": ["governance", "snapshot"]}
+            }
+          },
+          "required": ["skill", "modes"],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

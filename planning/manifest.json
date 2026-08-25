@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "source_skill_root": "skills",
+  "planning_skill_name_pattern": "^design-",
+  "max_skill_entry_lines": 250,
+  "skills": [
+    {
+      "name": "design-docs",
+      "kind": "planning",
+      "modes": ["concept", "system-map", "feature"],
+      "required_description_terms": ["新增", "修改", "删除", "不触发"],
+      "required_files": [
+        "SKILL.md",
+        "references/concept.md",
+        "references/system-map.md",
+        "references/feature-rules.md"
+      ]
+    },
+    {
+      "name": "design-evidence",
+      "kind": "planning",
+      "modes": ["competitor", "playtest", "implementation"],
+      "required_description_terms": ["专项调查", "内联", "不触发"],
+      "required_files": [
+        "SKILL.md",
+        "references/evidence-model.md",
+        "references/competitor.md",
+        "references/playtest.md",
+        "references/implementation.md"
+      ]
+    },
+    {
+      "name": "design-inference",
+      "kind": "planning",
+      "modes": ["decision"],
+      "required_description_terms": ["真实候选", "内联", "不触发"],
+      "required_files": [
+        "SKILL.md",
+        "references/decision-lenses.md",
+        "references/constraint-decision-matrix.md",
+        "references/prototype-validation-plan.md",
+        "references/decision-record-template.md"
+      ]
+    },
+    {
+      "name": "design-workflow",
+      "kind": "planning",
+      "modes": ["governance", "snapshot"],
+      "required_description_terms": ["跨系统", "版本", "不触发"],
+      "required_files": [
+        "SKILL.md",
+        "references/artifact-standards.md",
+        "references/artifact-output-profiles.md",
+        "references/stage-gates.md",
+        "references/milestone-production-planning.md",
+        "references/team-collaboration-governance.md"
+      ]
+    }
+  ],
+  "forbidden_skill_names": [
+    "grill-me",
+    "balance-check",
+    "change-impact",
+    "competitor-analysis",
+    "consistency-check",
+    "cross-design-review",
+    "design-map",
+    "design-review",
+    "feature-design",
+    "game-concept",
+    "game-design",
+    "number-design",
+    "playtest-analysis",
+    "quick-design",
+    "reverse-document",
+    "scope-check",
+    "ui-design",
+    "ui-review"
+  ],
+  "eval_contract": {
+    "minimum_cases": 47,
+    "minimum_none_cases": 10,
+    "required_tags": [
+      "trigger:change-first-draft",
+      "trigger:change-first-delete",
+      "boundary:no-full-gdd-prerequisite",
+      "boundary:inline-evidence",
+      "boundary:inline-decision",
+      "boundary:no-forced-dec",
+      "boundary:no-grill",
+      "boundary:no-skill",
+      "boundary:meta",
+      "boundary:implementation",
+      "boundary:governance-escalation",
+      "boundary:no-governance-escalation",
+      "boundary:multi-scope-change",
+      "boundary:evidence-proof-layer",
+      "boundary:low-cost-candidates-no-inference",
+      "gate:await-user-confirmation",
+      "trigger:prototype",
+      "handoff:evidence-to-inference",
+      "handoff:evidence-to-docs",
+      "handoff:inference-to-docs",
+      "handoff:docs-to-workflow",
+      "handoff:evidence-to-workflow",
+      "handoff:inference-to-workflow",
+      "boundary:snapshot-isolation",
+      "context:ordered-handoff",
+      "context:isolation"
+    ],
+    "required_handoffs": [
+      {"from": "design-evidence", "to": "design-inference"},
+      {"from": "design-evidence", "to": "design-docs"},
+      {"from": "design-inference", "to": "design-docs"},
+      {"from": "design-docs", "to": "design-workflow"},
+      {"from": "design-evidence", "to": "design-workflow"},
+      {"from": "design-inference", "to": "design-workflow"}
+    ]
+  },
+  "behavior_eval_contract": {
+    "minimum_cases": 15,
+    "required_tags": [
+      "state:proposed",
+      "state:current-unverified",
+      "state:superseded-not-rejected",
+      "id:no-external-reference",
+      "id:external-reference",
+      "conflict:implementation-docs",
+      "governance:cross-system",
+      "prototype:evidence-routing",
+      "scope:new-system-slice",
+      "state:proposed-revision",
+      "governance:rebaseline",
+      "artifact:file-delta",
+      "artifact:proposal-revision",
+      "artifact:release-rebaseline",
+      "governance:specialist-return",
+      "snapshot:read-only"
+    ]
+  },
+  "control_files": [
+    "planning/README.md",
+    "planning/routing-matrix.md",
+    "planning/manifest.json",
+    "planning/route-result.schema.json",
+    "planning/evals/evals.json",
+    "planning/evals/behavior-evals.json",
+    "planning/scripts/validate-planning-skills.ps1",
+    "planning/scripts/run-planning-route-evals.ps1"
+  ]
+}
