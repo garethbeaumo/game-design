@@ -118,7 +118,7 @@
     ]
   },
   "behavior_eval_contract": {
-    "minimum_cases": 15,
+    "minimum_cases": 18,
     "required_tags": [
       "state:proposed",
       "state:current-unverified",
@@ -135,7 +135,10 @@
       "artifact:proposal-revision",
       "artifact:release-rebaseline",
       "governance:specialist-return",
-      "snapshot:read-only"
+      "snapshot:read-only",
+      "artifact:design-object-first",
+      "artifact:review-ready",
+      "consistency:closed-loop"
     ]
   },
   "control_files": [
